@@ -1,0 +1,3 @@
+insert into usuario (name,login,password, hash) values ('Daniel da Silva', 'root', 'root', '179c4f6b-8b08-43a3-b772-85028ccc2ed0');
+insert into usuario (name,login,password, hash) values ('Dulcineia dos Santos Araújo', 'dulce', 'dulce', 'dc1a9a83-3348-433e-baff-89c1dadda32d');
+insert into usuario (name,login,password, hash) values ('Alana Araújo Brabo', 'alana', 'alana', '2fb7a26f-3caf-4f5e-9233-c2a7d27c396b');
