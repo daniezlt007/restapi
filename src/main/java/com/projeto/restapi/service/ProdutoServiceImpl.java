@@ -31,18 +31,21 @@ public class ProdutoServiceImpl implements ProdutoService{
         Optional<Categoria> categoria = null;
         if(produtoDTO != null){
             categoria = this.categoriaRepository.findById(produtoDTO.getCategoria());
-            ProdutoDTO dto =new ProdutoDTO(produtoDTO.getDescricao(), produtoDTO.getPreco(), CategoriaDTO.converter(categoria.get()));
-            dto.setCategoria(CategoriaDTO.converter(categoria.get()));
+            ProdutoDTO dto = this.findByDescricao(produtoDTO.getDescricao());
+            if(dto != null){
+                throw new NegocioException("Produto já existe.");
+            }
+            dto = new ProdutoDTO(produtoDTO.getDescricao(), produtoDTO.getPreco(), CategoriaDTO.converter(categoria.get()));
             produto = this.produtoRepository.save(Produto.converter(dto));
-            return ProdutoDTO.convert(produto);
         }
-        throw new NegocioException("Aconteceu algum problema ao salvar.");
+        return ProdutoDTO.convert(produto);
     }
 
     @Override
-    public void delete(ProdutoDTO produtoDTO) {
-        if(produtoDTO != null){
-            this.produtoRepository.delete(Produto.converter(produtoDTO));
+    public void delete(Long id) {
+        Produto produto = this.produtoRepository.getReferenceById(id);
+        if(produto != null){
+            this.produtoRepository.delete(produto);
         }
     }
 
@@ -86,6 +89,6 @@ public class ProdutoServiceImpl implements ProdutoService{
         if(produto != null){
             return ProdutoDTO.convert(produto);
         }
-        throw new ResourceNotFoundException("Produto não encontrado.");
+        return null;
     }
 }

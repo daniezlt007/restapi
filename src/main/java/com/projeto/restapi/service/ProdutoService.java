@@ -8,7 +8,7 @@ import java.util.List;
 public interface ProdutoService {
 
     public ProdutoDTO save(ProdutoDTORequest produtoDTO);
-    public void delete(ProdutoDTO produtoDTO);
+    public void delete(Long id);
     public ProdutoDTO edit(ProdutoDTO produtoDTO);
     public List<ProdutoDTO> findAll();
     public List<ProdutoDTO> findAllByCategoriaId(Long id);
